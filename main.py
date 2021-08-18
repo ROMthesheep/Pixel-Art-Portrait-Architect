@@ -1,5 +1,14 @@
 from intoArtbreeder import *
+from PyxelateRutine import run
 import json
+import enum
+
+class DitherTypes(enum.Enum):
+  none = "none"
+  naive = "naive"
+  bayer = "bayer"
+  floyd = "floyd"
+  atkinson = "atkinson"
 
 creationParams = {
   "chaos" : "0.7",
@@ -38,6 +47,15 @@ creationParams = {
   "hat" : "0"
 }
 
+dither = DitherTypes.none
+myPal = [
+  "#48941C",
+  "#2B3DE0",
+  "#5FE014",
+  "#E05E2B",
+  "#942E06"
+]
+downscale = 16
 
 paths = json.load(open('adresses.json'))
 cred = json.load(open('credentials.json'))
@@ -45,3 +63,5 @@ browser = initiateBrowser()
 navigateToTarget(browser, paths, cred)
 enterParams(browser, paths, creationParams)
 storePortraits(browser, paths["navigationPaths"])
+
+run(downscale, myPal, dither)

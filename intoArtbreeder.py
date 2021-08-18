@@ -7,7 +7,7 @@ import urllib.request
 
 def initiateBrowser():
   options = FirefoxOptions()
-  # options.add_argument("--headless")
+  options.add_argument("--headless")
   driver = webdriver.Firefox(options=options, executable_path="geckodriver.exe")
   print("liberando al gecko")
   return driver
@@ -24,8 +24,9 @@ def navigateToTarget(browser: WebDriver, paths, credentials):
   browser.find_element_by_xpath(paths["navigationPaths"]["createBTN"]).click()
   browser.find_element_by_xpath(paths["navigationPaths"]["portraitBTN"]).click()
   browser.find_element_by_xpath(paths["navigationPaths"]["composeBTN"]).click()
-  sleep(2)
   print("Accediendo a la herramientra de creacion")
+  sleep(2)
+  
 
 def enterParams(browser: WebDriver, paths, creationParams: Dict):
   for param in creationParams:
@@ -46,12 +47,5 @@ def storePortraits(browser: WebDriver, paths):
     print("..", end="")
     img = browser.find_element_by_xpath(paths["portraitPath"]).get_attribute('src')
     
-  print("\nimagen descargada")
+  print("\nImagen descargada")
   urllib.request.urlretrieve(img, "imgFromAB.jpg")
-
-  
-  
-
-
-
-
